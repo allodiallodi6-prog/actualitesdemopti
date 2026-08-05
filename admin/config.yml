@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Là où sont stockées les photos que vous téléversez depuis le formulaire
+media_folder: "img/uploads"
+public_folder: "img/uploads"
+
+locale: "fr"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    label_singular: "Article"
+    files:
+      - file: "content/articles.json"
+        label: "Tous les articles publiés"
+        name: "articles"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: "list"
+            summary: "{{titre}} — {{cat}}"
+            fields:
+              - {label: "Titre", name: "titre", widget: "string"}
+              - {label: "Sous-titre", name: "soustitre", widget: "string", required: false}
+              - label: "Catégorie"
+                name: "cat"
+                widget: "select"
+                options:
+                  - {label: "Actualités", value: "actualites"}
+                  - {label: "Politique", value: "politique"}
+                  - {label: "Société", value: "societe"}
+                  - {label: "Économie", value: "economie"}
+                  - {label: "Sécurité", value: "securite"}
+                  - {label: "Culture", value: "culture"}
+                  - {label: "Sport", value: "sport"}
+                  - {label: "Santé", value: "sante"}
+                  - {label: "Éducation", value: "education"}
+                  - {label: "Environnement", value: "environnement"}
+                  - {label: "Histoire de Mopti", value: "histoire"}
+              - {label: "Auteur", name: "auteur", widget: "string", default: "Rédaction"}
+              - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
+              - {label: "Temps de lecture (minutes)", name: "lecture", widget: "number", default: 4, value_type: "int"}
+              - {label: "Photo de couverture", name: "image", widget: "image", required: false, hint: "Optionnel : si vide, une illustration par défaut sera utilisée."}
+              - {label: "Extrait (résumé court affiché sur les cartes)", name: "extrait", widget: "text", required: false}
+              - {label: "Texte complet de l'article", name: "corps", widget: "markdown"}

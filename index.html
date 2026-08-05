@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités de Mopti — L'information de la région de Mopti, au Mali</title>
+<meta name="description" content="Informations fiables, analyses et reportages sur la région de Mopti, au Mali, pour les habitants et la diaspora.">
+<meta property="og:title" content="Actualités de Mopti">
+<meta property="og:description" content="L'actualité de la région de Mopti : politique, société, économie, sécurité, culture et plus.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="container">
+    <span id="today-date">Aujourd'hui à Mopti</span>
+    <div class="topbar-social">
+      <a href="https://www.facebook.com/profile.php?id=100063999037405" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+      <a href="https://www.youtube.com/@actualit%C3%A9sdemopti" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+      <a href="https://www.tiktok.com/@mopti48" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+      <a href="https://wa.me/22384216942" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+      <a href="https://t.me/actualitesdemopti" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead">
+  <div class="container masthead-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="30" fill="#0E5C7A"/>
+        <path d="M10 40 C 18 34, 26 44, 34 38 C 42 32, 50 40, 54 36" stroke="#4FAE72" stroke-width="3" fill="none"/>
+        <path d="M22 32 L30 18 L38 32 Z" fill="#E8C79A"/>
+        <rect x="27" y="30" width="6" height="10" fill="#E8C79A"/>
+      </svg>
+      <div class="logo-text">
+        <div class="top">Actualités de <span>Mopti</span></div>
+        <div class="sub">Fleuve · Culture · Actualité</div>
+      </div>
+    </a>
+    <div class="masthead-tools">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="search-input" type="text" placeholder="Rechercher un article…">
+      </div>
+      <button class="icon-btn" id="theme-toggle" aria-label="Changer de thème">🌙</button>
+      <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+    </div>
+  </div>
+  <div id="search-results" style="display:none; position:absolute; right:20px; max-width:320px; width:100%; background:var(--surface); border:1px solid var(--ligne-c); border-radius:6px; box-shadow:var(--shadow); z-index:70; margin-top:6px;"></div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="mainnav">
+  <div class="container">
+    <ul class="navlinks" id="navlinks">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="categorie.html?cat=actualites">Actualités</a></li>
+      <li><a href="categorie.html?cat=politique">Politique</a></li>
+      <li><a href="categorie.html?cat=societe">Société</a></li>
+      <li><a href="categorie.html?cat=economie">Économie</a></li>
+      <li><a href="categorie.html?cat=securite">Sécurité</a></li>
+      <li><a href="categorie.html?cat=culture">Culture</a></li>
+      <li><a href="categorie.html?cat=sport">Sport</a></li>
+      <li><a href="categorie.html?cat=sante">Santé</a></li>
+      <li><a href="categorie.html?cat=education">Éducation</a></li>
+      <li><a href="categorie.html?cat=environnement">Environnement</a></li>
+      <li><a href="categorie.html?cat=histoire">Histoire de Mopti</a></li>
+      <li><a href="galerie.html">Galerie Photos</a></li>
+      <li><a href="galerie.html">Galerie Vidéos</a></li>
+      <li><a href="apropos.html">À propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-feature" id="une-slot"></div>
+      <div class="hero-side" id="hero-side-slot"></div>
+    </div>
+  </section>
+
+  <div class="container"><div class="riviere-divider"><svg viewBox="0 0 1200 22"><path d="M0 11 C 100 0, 200 22, 300 11 C 400 0, 500 22, 600 11 C 700 0, 800 22, 900 11 C 1000 0, 1100 22, 1200 11" fill="none" stroke-width="2"/></svg></div></div>
+
+  <!-- ============ DERNIÈRES + PLUS LUS ============ -->
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <div class="section-head">
+          <h2>Dernières actualités</h2>
+          <a href="categorie.html?cat=actualites" class="voir-tout">Voir tout →</a>
+        </div>
+        <div class="grid-articles" id="dernieres-slot"></div>
+      </div>
+      <div class="plus-lus-box">
+        <div class="section-head"><h2 style="font-size:20px;">Les plus lus</h2></div>
+        <div id="pluslus-slot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAR CATÉGORIE ============ -->
+  <section class="section" style="background:var(--bg-alt);">
+    <div class="container">
+      <div class="section-head"><h2>Actualités par catégorie</h2></div>
+      <div class="tabs" id="cat-tabs"></div>
+      <div class="grid-articles" id="cat-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ CARROUSEL ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>À la une cette semaine</h2></div>
+      <div class="carousel-wrap">
+        <div class="carousel-nav carousel-prev" id="carousel-prev">‹</div>
+        <div class="carousel-track" id="carousel-slot"></div>
+        <div class="carousel-nav carousel-next" id="carousel-next">›</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDÉOS ============ -->
+  <section class="section" style="background:var(--bg-alt);">
+    <div class="container">
+      <div class="section-head">
+        <h2>Vidéos récentes</h2>
+        <a href="galerie.html" class="voir-tout">Voir tout →</a>
+      </div>
+      <div class="video-grid" id="videos-slot"></div>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="newsletter reveal">
+        <div>
+          <h2>Restez informé de l'actualité de Mopti</h2>
+          <p>Recevez chaque semaine l'essentiel de l'actualité régionale directement dans votre boîte mail — utile pour la diaspora.</p>
+        </div>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" required placeholder="Votre adresse e-mail">
+          <button class="btn btn-primary" type="submit">S'abonner</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="backtotop">↑</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo-text"><div class="top" style="color:#fff;">Actualités de <span style="color:#6BC98B;">Mopti</span></div></div>
+        <p style="font-size:13.5px; margin-top:14px; max-width:32ch; color:#A9BCB9;">Le média de référence de la région de Mopti, au Mali. Informer les habitants et la diaspora avec rigueur.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=100063999037405" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+          <a href="https://www.youtube.com/@actualit%C3%A9sdemopti" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+          <a href="https://www.tiktok.com/@mopti48" target="_blank" rel="noopener" aria-label="TikTok">T</a>
+          <a href="https://wa.me/22384216942" target="_blank" rel="noopener" aria-label="WhatsApp">W</a>
+          <a href="https://t.me/actualitesdemopti" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
+        </div>
+      </div>
+      <div>
+        <h5>Rubriques</h5>
+        <ul>
+          <li><a href="categorie.html?cat=politique">Politique</a></li>
+          <li><a href="categorie.html?cat=societe">Société</a></li>
+          <li><a href="categorie.html?cat=economie">Économie</a></li>
+          <li><a href="categorie.html?cat=securite">Sécurité</a></li>
+          <li><a href="categorie.html?cat=culture">Culture</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Le site</h5>
+        <ul>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="admin-login.html">Espace rédaction</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Conditions d'utilisation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Coordonnées</h5>
+        <ul>
+          <li>Mopti, Mali</li>
+          <li>redaction@actualitesdemopti.ml</li>
+          <li>+223 00 00 00 00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Actualités de Mopti. Tous droits réservés.</span>
+      <span><a href="#">Confidentialité</a><a href="#">Conditions</a><a href="#">Mentions légales</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+COMMENT AJOUTER VOS VRAIES PHOTOS DE MOPTI
+============================================
+
+Placez vos photos dans CE dossier "img/", en respectant EXACTEMENT ces noms de fichier
+(en minuscules, format .jpg). Le site les affichera automatiquement à la place des
+illustrations dessinées, dès qu'un fichier du bon nom est présent.
+
+Une photo par catégorie (utilisée pour tous les articles de cette catégorie) :
+  img/politique.jpg
+  img/societe.jpg
+  img/economie.jpg
+  img/securite.jpg
+  img/culture.jpg
+  img/sport.jpg
+  img/sante.jpg
+  img/education.jpg
+  img/environnement.jpg
+  img/histoire.jpg
+  img/actualites.jpg
+
+Photo de couverture du grand bandeau d'accueil (silhouette de Mopti) :
+  img/hero.jpg
+
+Pour la galerie d'images DANS un article (3 photos), vous pouvez ajouter en plus :
+  img/politique-2.jpg / img/politique-3.jpg   (idem pour chaque catégorie)
+
+CONSEIL : Taille recommandée 1200x800 pixels environ, poids < 500 Ko par photo
+(le site compressera/adaptera visuellement, mais des photos plus légères chargent
+plus vite).
+
+Si un fichier n'existe pas encore, l'illustration dessinée reste affichée à la place
+automatiquement — aucun risque de "case vide".

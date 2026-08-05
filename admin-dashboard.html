@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Actualités de Mopti</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-side">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="30" fill="#3E94B5"/>
+        <path d="M22 32 L30 18 L38 32 Z" fill="#E8C79A"/>
+      </svg>
+      <div class="logo-text"><div class="top">Mopti</div></div>
+    </a>
+    <nav>
+      <a href="#" class="active">📊 Statistiques</a>
+      <a href="#">📰 Articles</a>
+      <a href="#">🗂️ Catégories</a>
+      <a href="#">🖼️ Images</a>
+      <a href="#">🎬 Vidéos</a>
+      <a href="#">💬 Commentaires</a>
+      <a href="#">👥 Utilisateurs</a>
+      <a href="#">⚙️ Paramètres</a>
+      <a href="admin-login.html" style="margin-top:20px; opacity:.8;">↩ Déconnexion</a>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+      <div>
+        <h1 style="font-size:24px;">Tableau de bord</h1>
+        <p style="color:var(--texte-att); font-size:13.5px;">Bienvenue, Aïssata — voici l'activité du site aujourd'hui.</p>
+      </div>
+      <button class="btn btn-primary">＋ Nouvel article</button>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">1 284</div><div class="label">Articles publiés</div></div>
+      <div class="stat-card"><div class="num">312 940</div><div class="label">Vues ce mois-ci</div></div>
+      <div class="stat-card"><div class="num">4 872</div><div class="label">Abonnés newsletter</div></div>
+      <div class="stat-card"><div class="num">86</div><div class="label">Commentaires en attente</div></div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h2 style="font-size:19px;">Articles récents</h2>
+      <input type="text" placeholder="Rechercher un article…" style="padding:9px 14px; border-radius:6px; border:1px solid var(--ligne-c); font-size:13px; background:var(--surface); color:var(--texte);">
+    </div>
+
+    <table class="admin-table">
+      <thead>
+        <tr><th>Titre</th><th>Catégorie</th><th>Auteur</th><th>Date</th><th>Statut</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="admin-tbody"></tbody>
+    </table>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('mopti:articles-ready', ()=>{
+  const tbody = document.getElementById('admin-tbody');
+  const rows = ARTICLES.slice(0,10).map((a,i)=>`
+    <tr>
+      <td>${a.titre}</td>
+      <td><span class="tag tag-${a.cat}">${a.catLabel}</span></td>
+      <td>${a.auteur}</td>
+      <td>${a.date}</td>
+      <td><span class="status-pill ${i%4===0?'status-brouillon':'status-publie'}">${i%4===0?'Brouillon':'Publié'}</span></td>
+      <td style="white-space:nowrap;">
+        <button class="icon-btn" title="Modifier" style="width:30px;height:30px;">✎</button>
+        <button class="icon-btn" title="Supprimer" style="width:30px;height:30px;">🗑</button>
+      </td>
+    </tr>`).join('');
+  tbody.innerHTML = rows;
+});
+</script>
+</body>
+</html>
