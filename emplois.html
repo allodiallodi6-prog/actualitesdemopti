@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catégorie — Actualités de Mopti</title>
+<title>Emplois — Actualités de Mopti</title>
+<meta name="description" content="Offres d'emploi, stages et opportunités professionnelles dans la région de Mopti, au Mali.">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <div class="topbar">
   <div class="container">
@@ -66,28 +67,42 @@
 <main>
   <section class="section" style="padding-top:36px;">
     <div class="container">
-      <span class="eyebrow">Rubrique</span>
-      <h1 id="cat-title" style="font-size:32px; margin:10px 0 24px;">Catégorie</h1>
-      <div class="grid-articles" id="categorie-grid"></div>
-      <div style="display:flex; justify-content:center; gap:8px; margin-top:34px;">
-        <button class="tab-btn active">1</button>
-        <button class="tab-btn">2</button>
-        <button class="tab-btn">3</button>
-        <button class="tab-btn">Suivant →</button>
-      </div>
+      <span class="eyebrow">Petites annonces</span>
+      <h1 style="font-size:32px; margin:10px 0 8px;">Offres d'emploi à Mopti</h1>
+      <p style="color:var(--texte-att); max-width:60ch; margin-bottom:10px;">Les opportunités professionnelles publiées par les entreprises, associations et organisations de la région de Mopti.</p>
+      <p style="font-size:13px; color:var(--texte-att); margin-bottom:30px;">Vous recrutez ? <a href="contact.html" style="color:var(--accent); font-weight:600;">Contactez la rédaction</a> pour publier une offre.</p>
+
+      <div id="emplois-list" style="display:flex; flex-direction:column; gap:16px;"></div>
     </div>
   </section>
 </main>
 <script>
-  document.addEventListener('mopti:articles-ready', ()=>{
-    const params = new URLSearchParams(location.search);
-    const cat = params.get('cat') || 'actualites';
-    const labelMap = {actualites:'Actualités', politique:'Politique', societe:'Société', economie:'Économie', securite:'Sécurité', culture:'Culture', sport:'Sport', sante:'Santé', education:'Éducation', environnement:'Environnement', histoire:'Histoire de Mopti', avis:'Avis et communiqués'};
-    document.getElementById('cat-title').textContent = labelMap[cat] || 'Actualités';
-    document.title = (labelMap[cat] || 'Actualités') + ' — Actualités de Mopti';
-    const list = (cat === 'actualites') ? ARTICLES : ARTICLES.filter(a=>a.cat===cat);
-    document.getElementById('categorie-grid').innerHTML = list.map(cardHTML).join('') || '<p>Aucun article pour le moment dans cette rubrique.</p>';
-  });
+document.addEventListener('mopti:articles-ready', async ()=>{
+  const list = document.getElementById('emplois-list');
+  try{
+    const res = await fetch('content/emplois.json', {cache:'no-store'});
+    const data = res.ok ? await res.json() : {emplois:[]};
+    const emplois = (data.emplois || []).slice().reverse();
+    if(!emplois.length){
+      list.innerHTML = `<div class="sidebar-box" style="text-align:center; color:var(--texte-att);">Aucune offre publiée pour le moment. Revenez bientôt !</div>`;
+      return;
+    }
+    list.innerHTML = emplois.map(e=>`
+      <div class="card" style="padding:22px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+          <div>
+            <span class="tag tag-emploi">${(e.type||'Emploi')}</span>
+            <h3 style="margin:10px 0 4px; font-size:19px;">${e.poste||''}</h3>
+            <div class="card-meta"><span>${e.entreprise||''}</span><span>·</span><span>${e.lieu||'Mopti'}</span>${e.date_limite ? `<span>·</span><span>Date limite : ${e.date_limite}</span>` : ''}</div>
+          </div>
+        </div>
+        <div style="font-size:14.5px; color:var(--texte); margin-top:6px;">${mdish(e.description||'')}</div>
+        ${e.contact ? `<div style="font-family:var(--font-mono); font-size:12.5px; color:var(--accent); margin-top:6px;">📩 Pour postuler : ${e.contact}</div>` : ''}
+      </div>`).join('');
+  }catch(err){
+    list.innerHTML = `<div class="sidebar-box" style="text-align:center; color:var(--texte-att);">Impossible de charger les offres pour le moment.</div>`;
+  }
+});
 </script>
 <div id="backtotop">↑</div>
 <footer>
@@ -110,8 +125,8 @@
           <li><a href="categorie.html?cat=politique">Politique</a></li>
           <li><a href="categorie.html?cat=societe">Société</a></li>
           <li><a href="categorie.html?cat=economie">Économie</a></li>
-          <li><a href="categorie.html?cat=securite">Sécurité</a></li>
-          <li><a href="categorie.html?cat=culture">Culture</a></li>
+          <li><a href="categorie.html?cat=avis">Avis &amp; Communiqués</a></li>
+          <li><a href="emplois.html">Emplois</a></li>
         </ul>
       </div>
       <div>
@@ -119,9 +134,9 @@
         <ul>
           <li><a href="apropos.html">À propos</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Annoncer sur le site</a></li>
           <li><a href="admin-login.html">Espace rédaction</a></li>
           <li><a href="#">Politique de confidentialité</a></li>
-          <li><a href="#">Conditions d'utilisation</a></li>
         </ul>
       </div>
       <div>
@@ -129,7 +144,7 @@
         <ul>
           <li>Mopti, Mali</li>
           <li>redaction@actualitesdemopti.ml</li>
-          <li>+223 00 00 00 00</li>
+          <li>+223 84 21 69 42</li>
         </ul>
       </div>
     </div>
