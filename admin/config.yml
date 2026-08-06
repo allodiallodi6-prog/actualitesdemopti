@@ -39,9 +39,34 @@ collections:
                   - {label: "Éducation", value: "education"}
                   - {label: "Environnement", value: "environnement"}
                   - {label: "Histoire de Mopti", value: "histoire"}
+                  - {label: "Avis et communiqués", value: "avis"}
               - {label: "Auteur", name: "auteur", widget: "string", default: "Rédaction"}
               - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
               - {label: "Temps de lecture (minutes)", name: "lecture", widget: "number", default: 4, value_type: "int"}
               - {label: "Photo de couverture", name: "image", widget: "image", required: false, hint: "Optionnel : si vide, une illustration par défaut sera utilisée."}
               - {label: "Extrait (résumé court affiché sur les cartes)", name: "extrait", widget: "text", required: false}
               - {label: "Texte complet de l'article", name: "corps", widget: "markdown"}
+
+  - name: "emplois"
+    label: "Offres d'emploi"
+    label_singular: "Offre d'emploi"
+    files:
+      - file: "content/emplois.json"
+        label: "Toutes les offres publiées"
+        name: "emplois"
+        fields:
+          - label: "Offres"
+            name: "emplois"
+            widget: "list"
+            summary: "{{poste}} — {{entreprise}}"
+            fields:
+              - {label: "Intitulé du poste", name: "poste", widget: "string"}
+              - {label: "Entreprise / organisation", name: "entreprise", widget: "string"}
+              - {label: "Lieu", name: "lieu", widget: "string", default: "Mopti"}
+              - label: "Type de contrat"
+                name: "type"
+                widget: "select"
+                options: ["CDI", "CDD", "Stage", "Bénévolat", "Freelance / Prestation", "Temps partiel"]
+              - {label: "Date limite de candidature", name: "date_limite", widget: "date", required: false}
+              - {label: "Description du poste", name: "description", widget: "markdown"}
+              - {label: "Comment postuler (e-mail, téléphone, lien...)", name: "contact", widget: "string"}
