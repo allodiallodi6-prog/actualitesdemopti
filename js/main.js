@@ -14,6 +14,7 @@ const ILLUS = {
   education: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#3468A8"/><path d="M100 130 L200 90 L300 130 L200 170 Z" fill="#E8C79A"/><rect x="190" y="170" width="20" height="60" fill="#E8C79A"/></svg>`,
   environnement: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#4FAE72"/><circle cx="130" cy="160" r="50" fill="#17753F"/><circle cx="230" cy="130" r="65" fill="#17753F"/><circle cx="310" cy="170" r="40" fill="#17753F"/><rect y="230" width="400" height="70" fill="#0E5C7A"/></svg>`,
   histoire: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#7A5A3A"/><rect x="60" y="120" width="280" height="110" fill="#5C4028"/><rect x="90" y="60" width="30" height="70" fill="#5C4028"/><rect x="150" y="40" width="30" height="90" fill="#5C4028"/><rect x="220" y="40" width="30" height="90" fill="#5C4028"/><rect x="280" y="60" width="30" height="70" fill="#5C4028"/></svg>`,
+  avis: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#B23A48"/><rect x="110" y="80" width="180" height="140" rx="6" fill="#fff"/><rect x="130" y="105" width="140" height="10" fill="#B23A48"/><rect x="130" y="130" width="140" height="10" fill="#E8C79A"/><rect x="130" y="155" width="90" height="10" fill="#E8C79A"/><circle cx="290" cy="90" r="18" fill="#C97B3D"/></svg>`,
   actualites: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#0A3F54"/><rect x="40" y="60" width="320" height="14" fill="#E8C79A"/><rect x="40" y="90" width="220" height="10" fill="#3E94B5"/><rect x="40" y="130" width="320" height="120" fill="#0E5C7A"/></svg>`
 };
 function illus(cat){ return ILLUS[cat] || ILLUS.actualites; }
@@ -88,6 +89,7 @@ const CATS = [
   {slug:'education', label:'Éducation'},
   {slug:'environnement', label:'Environnement'},
   {slug:'histoire', label:'Histoire de Mopti'},
+  {slug:'avis', label:'Avis et communiqués'},
 ];
 
 const AUTEURS = ['Aïssata Cissé','Boubacar Traoré','Fatoumata Diallo','Amadou Guindo','Hawa Maïga'];
@@ -102,14 +104,15 @@ const TITRES = {
   sante: ["Campagne de vaccination dans les écoles de la région","Le centre de santé de référence renforce ses équipements","Sensibilisation contre le paludisme avant la saison des pluies"],
   education: ["Rentrée scolaire : état des lieux dans le cercle de Mopti","Nouvelle bibliothèque communautaire à Sévaré","Examens de fin d'année : les chiffres de la région"],
   environnement: ["Niveau du fleuve Bani : les pêcheurs restent vigilants","Reboisement : une initiative citoyenne prend de l'ampleur","Gestion des déchets : le défi des grandes agglomérations"],
-  histoire: ["La Grande Mosquée de Mopti, joyau de l'architecture en banco","Mopti, la 'Venise du Mali' : origines d'un surnom","Sur les traces des empires du Macina"]
+  histoire: ["La Grande Mosquée de Mopti, joyau de l'architecture en banco","Mopti, la 'Venise du Mali' : origines d'un surnom","Sur les traces des empires du Macina"],
+  avis: ["Communiqué de la mairie : coupure d'eau programmée ce week-end","Avis de recrutement : la préfecture recherche des agents","Appel à candidatures pour le prochain festival culturel"]
 };
 
 function genArticles(){
   let id = 1;
   const arr = [];
   CATS.forEach(c=>{
-    TITRES[c.slug].forEach((t,i)=>{
+    (TITRES[c.slug] || []).forEach((t,i)=>{
       arr.push({
         id: id++,
         titre: t,
@@ -395,6 +398,64 @@ function renderArticlePage(){
   }
 }
 
+/* ---------- Météo de Mopti (Open-Meteo, gratuit, sans clé) ---------- */
+const MOPTI_LAT = 14.4843, MOPTI_LON = -4.1996;
+const WEATHER_CODES = {
+  0:'☀️ Ciel dégagé', 1:'🌤️ Peu nuageux', 2:'⛅ Partiellement nuageux', 3:'☁️ Couvert',
+  45:'🌫️ Brumeux', 48:'🌫️ Brouillard givrant',
+  51:'🌦️ Bruine légère', 53:'🌦️ Bruine', 55:'🌧️ Bruine dense',
+  61:'🌧️ Pluie légère', 63:'🌧️ Pluie', 65:'🌧️ Forte pluie',
+  80:'🌦️ Averses', 81:'🌧️ Averses fortes', 82:'⛈️ Averses violentes',
+  95:'⛈️ Orage', 96:'⛈️ Orage grêle', 99:'⛈️ Orage violent'
+};
+async function loadWeather(){
+  const el = document.getElementById('weather-badge');
+  if(!el) return;
+  try{
+    const cached = sessionStorage.getItem('mopti-weather');
+    if(cached){ el.innerHTML = cached; return; }
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${MOPTI_LAT}&longitude=${MOPTI_LON}&current_weather=true&timezone=auto`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('meteo indisponible');
+    const data = await res.json();
+    const cw = data.current_weather;
+    const desc = WEATHER_CODES[cw.weathercode] || '🌍';
+    const html = `${desc} · ${Math.round(cw.temperature)}°C à Mopti`;
+    el.innerHTML = html;
+    sessionStorage.setItem('mopti-weather', html);
+  }catch(e){ /* on garde le texte par défaut si la météo est indisponible */ }
+}
+
+/* ---------- Heures de prière à Mopti (Aladhan, gratuit, sans clé) ---------- */
+async function loadPrayerTimes(){
+  const el = document.getElementById('prayer-times-slot');
+  if(!el) return;
+  try{
+    const cached = sessionStorage.getItem('mopti-prayers');
+    let timings;
+    if(cached){
+      timings = JSON.parse(cached);
+    } else {
+      const url = `https://api.aladhan.com/v1/timings?latitude=${MOPTI_LAT}&longitude=${MOPTI_LON}&method=2`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('horaires indisponibles');
+      const data = await res.json();
+      timings = data.data.timings;
+      sessionStorage.setItem('mopti-prayers', JSON.stringify(timings));
+    }
+    const rows = [
+      ['Fajr', 'Fajr (aube)'], ['Dhuhr', 'Dhuhr (midi)'], ['Asr', 'Asr (après-midi)'],
+      ['Maghrib', 'Maghrib (coucher)'], ['Isha', 'Isha (nuit)']
+    ];
+    el.innerHTML = rows.map(([key,label])=>`
+      <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--ligne-c); font-size:13.5px;">
+        <span>${label}</span><span style="font-family:var(--font-mono); font-weight:700; color:var(--accent);">${timings[key]}</span>
+      </div>`).join('');
+  }catch(e){
+    el.innerHTML = `<div style="font-size:12.5px; color:var(--texte-att);">Horaires indisponibles pour le moment.</div>`;
+  }
+}
+
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', async ()=>{
   setupTheme();
@@ -402,6 +463,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   setupBackToTop();
   setupSearch();
   setupNewsletter();
+  loadWeather();
+  loadPrayerTimes();
 
   REAL_ARTICLES = await loadRealArticles();
   ARTICLES = REAL_ARTICLES.concat(DEMO_ARTICLES);

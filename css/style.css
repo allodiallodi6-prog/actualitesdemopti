@@ -125,7 +125,7 @@ html.dark .topbar { background: #071319; }
   height: 34px;
 }
 .topbar-social { display: flex; gap: 14px; align-items: center; }
-.topbar-social a { opacity: .85; display: flex; }
+.topbar-social a { opacity: .85; display: flex; align-items: center; justify-content: center; }
 .topbar-social a:hover { opacity: 1; color: var(--banco-clair); }
 
 /* ================= MASTHEAD ================= */
@@ -494,6 +494,7 @@ html.dark footer { background: #061117; }
   border: 1px solid rgba(255,255,255,.18);
   display: flex; align-items: center; justify-content: center;
 }
+.footer-social a svg { width: 16px; height: 16px; }
 .footer-social a:hover { background: var(--vert-mali); border-color: var(--vert-mali); }
 .footer-bottom {
   display: flex; justify-content: space-between; align-items: center;
