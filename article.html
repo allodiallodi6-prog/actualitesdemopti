@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Article — Actualités de Mopti</title>
-<link rel="stylesheet" href="css/style.css"></head><body>
+<link rel="stylesheet" href="css/style.css"><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0K39KGD70"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y0K39KGD70');
+</script>
+</head><body>
 <div class="topbar">
   <div class="container">
     <span id="weather-badge">Aujourd'hui à Mopti</span>
@@ -105,25 +113,24 @@
     </article>
 
     <section class="comments-section">
-      <h2 style="margin-bottom:18px;">Commentaires</h2>
-      <form class="comment-form" style="margin-bottom:24px;">
-        <div class="field"><label>Votre commentaire</label><textarea placeholder="Partagez votre avis…"></textarea></div>
-        <button class="btn btn-primary" type="submit">Publier le commentaire</button>
-      </form>
-      <div class="comment">
-        <div class="avatar">HM</div>
-        <div class="comment-body">
-          <div class="comment-name">Hawa M. <span class="comment-date">— il y a 2 jours</span></div>
-          <p>Merci pour ce reportage bien documenté sur notre région.</p>
-        </div>
-      </div>
-      <div class="comment">
-        <div class="avatar">SD</div>
-        <div class="comment-body">
-          <div class="comment-name">Seydou D. <span class="comment-date">— il y a 5 jours</span></div>
-          <p>Toujours utile d'avoir des informations fiables sur Mopti depuis l'étranger.</p>
-        </div>
-      </div>
+      <h2 style="margin-bottom:8px;">Commentaires</h2>
+      <p style="font-size:12.5px; color:var(--texte-att); margin-bottom:20px;">Les commentaires nécessitent un compte GitHub gratuit pour être publiés — cela permet d'éviter le spam.</p>
+      <div class="giscus"></div>
+      <script src="https://giscus.app/client.js"
+              data-repo="allodiallodi6-prog/actualitesdemopti"
+              data-repo-id="R_kgDOTvElZw"
+              data-category="General"
+              data-category-id="DIC_kwDOTvElZ84DC3Eq"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="light"
+              data-lang="fr"
+              crossorigin="anonymous"
+              async>
+      </script>
     </section>
 
     <section class="section container">

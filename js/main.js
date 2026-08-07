@@ -308,11 +308,26 @@ function setupTheme(){
   if(saved === 'dark') root.classList.add('dark');
   function icon(){ return root.classList.contains('dark') ? '☀️' : '🌙'; }
   if(btn) btn.textContent = icon();
+  window.addEventListener('message', (event)=>{
+    if(event.origin !== 'https://giscus.app') return;
+    if(event.data.giscus && event.data.giscus.discussion !== undefined){
+      syncGiscusTheme();
+    }
+  });
   if(btn) btn.addEventListener('click', ()=>{
     root.classList.toggle('dark');
     localStorage.setItem('mopti-theme', root.classList.contains('dark') ? 'dark' : 'light');
     btn.textContent = icon();
+    syncGiscusTheme();
   });
+}
+
+/* ---------- Synchronise le thème des commentaires Giscus avec le site ---------- */
+function syncGiscusTheme(){
+  const iframe = document.querySelector('iframe.giscus-frame');
+  if(!iframe) return;
+  const theme = document.documentElement.classList.contains('dark') ? 'dark_dimmed' : 'light';
+  iframe.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
 }
 
 /* ---------- Menu mobile ---------- */
