@@ -66,7 +66,7 @@ collections:
               - label: "Type de contrat"
                 name: "type"
                 widget: "select"
-                options: ["CDI", "CDD", "Stage", "Bénévolat", "Freelance / Prestation", "Temps partiel"]
+                options: ["CDI", "CDD", "Stage", "Bénévolat", "Freelance / Prestation", "Temps partiel", "Appel d'offre", "Appel à candidature"]
               - {label: "Date limite de candidature", name: "date_limite", widget: "date", required: false}
               - {label: "Description du poste", name: "description", widget: "markdown"}
               - {label: "Comment postuler (e-mail, téléphone, lien...)", name: "contact", widget: "string"}
