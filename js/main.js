@@ -217,7 +217,7 @@ function renderHome(){
   const une = document.getElementById('une-slot');
   if(une){
     une.innerHTML = `
-      <div class="illus"><img src="img/hero.jpg" alt="Vue de Mopti" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.onerror=null; this.outerHTML = HERO_ILLUS;" /></div>
+      <div class="illus">${mediaHTML(UNE.cat, UNE.titre, null, UNE.image)}</div>
       <div class="scrim"></div>
       <div class="hero-feature-content">
         <span class="tag tag-${UNE.cat}">${UNE.catLabel}</span>

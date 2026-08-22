@@ -241,7 +241,7 @@ html.dark .mainnav { background: #0C2530; }
   box-shadow: var(--shadow);
 }
 .hero-feature .illus { position: absolute; inset: 0; }
-.hero-feature .illus svg { width: 100%; height: 100%; }
+.hero-feature .illus svg, .hero-feature .illus img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-feature .scrim {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(10,26,32,0) 30%, rgba(8,20,25,.92) 100%);
