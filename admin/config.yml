@@ -41,7 +41,7 @@ collections:
                   - {label: "Histoire de Mopti", value: "histoire"}
                   - {label: "Avis et communiqués", value: "avis"}
               - {label: "Auteur", name: "auteur", widget: "string", default: "Rédaction"}
-              - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
+              - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false}
               - {label: "Temps de lecture (minutes)", name: "lecture", widget: "number", default: 4, value_type: "int"}
               - {label: "Photo de couverture", name: "image", widget: "image", required: false, hint: "Optionnel : si vide, une illustration par défaut sera utilisée."}
               - {label: "Extrait (résumé court affiché sur les cartes)", name: "extrait", widget: "text", required: false}
